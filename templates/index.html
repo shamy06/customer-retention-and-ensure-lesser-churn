@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<!---- head part...-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title> 
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+    </head>
+
+<body>
+
+
+    <!-- Navbar section....Starts -->
+    <section id="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand font-weight-bold" href="#" style="color: rgb(230, 230, 224);">Customer Churn Prediction</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a class="nav-link" href="#">Prediction <span class="fa fa-home fa-lg"><span class="sr-only">(current)</span></a></li>
+          <li class="nav-item active"><a class="nav-link" href="/about">About</a></li>   
+ 
+            
+             
+        </ul>
+    </div>
+    </nav>
+    </section>
+    <!-- Navbar Section   Ends -->
+    <!-- heading part-->
+     <h1><center>Telecom Customer Churn Prediction</center></h1>
+    <form action="{{ url_for('predict')}}" method="post">
+	    <h2>Enter the Details Below and Predict if a  Customer will Churn out or not</h2>
+	    
+    <div class="contentform">
+    	<div id="sendmessage"> Your message has been sent successfully. Thank you. </div>
+
+      <!--divides the page to left section -->  
+    	<div class="leftcontact">
+         <!-- fields to be filled for prediction-->
+          <div class="form-group">
+            <p>Tenure: <span>*</span></p>	
+            <span class="icon-case"></span>
+                      <input name="tenure" required="required">
+                      <div class="validation"></div>
+            </div>	
+			      <div class="form-group">
+			        <p>Monthly Charges:<span>*</span></p>
+			        <span class="icon-case"></span>
+				        <input name="MonthlyCharges"   required="required" type="number" >
+                <div class="validation"></div>
+       </div> 
+        <div class="form-group">
+          <p>Total Charges:<span>*</span></p>
+          <span class="icon-case"></span>
+            <input name="TotalCharges"  required="required" type="number" >
+            <div class="validation"></div>
+   </div> 
+   <div class="form-group">
+    <p>Contract:  <span>*</span></p>
+    <span class="icon-case"></span>
+    <select name="Contract_OneYear"  required="required">
+      <option value="OneYear">One Year</option>
+      <option value="TwoYear">Two Year</option>
+    </select>
+      
+              <div class="validation"></div>
+    </div>
+    		<div class="form-group">
+			<p>Dependents:  <span>*</span></p>
+      <span class="icon-case"></span>
+      <select name="Dependents_Yes"  required="required">
+        <option value="Yes">Yes</option>
+    
+        <option value="No">No</option>
+      </select>
+                <div class="validation"></div>
+      </div>
+      <div class="form-group">
+        <p>Device Protection:  <span>*</span></p>
+        <span class="icon-case"></span>
+        <select name="DeviceProtection_Yes"  required="required">
+          <option value="Yes">Yes</option>
+      
+          <option value="No">No</option>
+        </select>
+          
+                  <div class="validation"></div>
+        </div>
+      <div class="form-group">
+        <p>Gender of Customer:  <span>*</span></p>	
+        <span class="icon-case"></span>
+                  <select name="gender_Male" id="resea" required="required">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+              </select>
+                  <div class="validation"></div>
+        </div>
+      <div class="form-group">
+        <p>Multiple Lines:  <span>*</span></p>
+        <span class="icon-case"></span>
+        <select name="MultipleLines_Yes"  required="required">
+          <option value="Yes">Yes</option>
+      
+          <option value="No">No</option>
+        </select>
+                  <div class="validation"></div>
+        </div>
+        <div class="form-group">
+          <p>Internet Service:<span>*</span></p>
+          <span class="icon-case"></span>
+          <select name="InternetService_No"  required="required">
+
+            <option value="Fiberoptic">Fiber optic</option>
+            <option value="No">NO</option>
+            </select>
+                    <div class="validation"></div>
+          </div>   
+              
+      </div>
+      <!-- divides the section into right side-->
+            <div class="rightcontact">  
+              <div class="form-group">
+            <p>Online Backup:<span>*</span></p>
+            <span class="icon-case"></span>
+            <select name="OnlineBackup_Yes"  required="required">
+              <option value="Yes">Yes</option>
+              <option value="No">NO</option>
+              </select>
+                      <div class="validation"></div>
+            </div>
+            	
+              <div class="form-group">
+                <p>Online Security:  <span>*</span></p>
+                <span class="icon-case"></span>
+                <select name="OnlineSecurity_Yes"  required="required">
+                  <option value="Yes">Yes</option>
+              
+                  <option value="No">No</option>
+                </select>
+                  
+                          <div class="validation"></div>
+                </div>
+             	
+                <div class="form-group">
+                  <p>Paperless Biling:<span>*</span></p>
+                  <span class="icon-case"></span>
+                  <select name="Paperlessbilling_Yes"  required="required">
+                    <option value="Yes">Yes</option>
+                    <option value="No">NO</option>
+                    </select>
+                            <div class="validation"></div>
+                  </div>
+                  
+			<div class="form-group">
+        <p>Partner:<span>*</span></p>
+        <span class="icon-case"></span>
+        <select name="Partner_Yes"  required="required">
+          <option value="Yes">Yes</option>
+          <option value="No">NO</option>
+          </select>
+                  <div class="validation"></div>
+        </div>
+        <div class="form-group">
+            <p>Payment Method:  <span>*</span></p>
+            <span class="icon-case"></span>
+            <select name="PaymentMethod_Electroniccheck" required="required">
+              <option value="Electroniccheck">Electronic check</option>
+              <option value="Creditcard">Credit card (automatic)</option>
+              <option value="Mailedcheck">Mailed check</option>
+                  </select>
+                      <div class="validation"></div>
+            </div>
+            <div class="form-group">
+              <p>Phone Service:<span>*</span></p>
+              <span class="icon-case"></span>
+              <select name="PhoneService_Yes"  required="required">
+                <option value="Yes">Yes</option>
+                <option value="No">NO</option>
+                </select>
+                        <div class="validation"></div>
+              </div>       	
+            <div class="form-group">
+              <p>Senior Citizen: <span>*</span>(Yes=1,No=0)</p>
+              <span class="icon-case"></span>
+              <input name="SeniorCitizen_1" required="required">
+                  <div class="validation"></div>
+              </div>
+                           
+          		<div class="form-group">
+                <p>Streaming Movies:<span>*</span></p>
+                <span class="icon-case"></span>
+                
+                  <select name="StreamingMovies_Yes"  required="required">
+                  <option value="yes">Yes</option>
+                  <option value="No">NO</option>
+                  </select>
+                          <div class="validation"></div>
+                </div>
+              <div class="form-group">
+                <p>Streaming TV: <span>*</span></p>
+                <span class="icon-case"></span>
+                <select name="StreamingTv_Yes"  required="required">
+                  <option value="Yes">Yes</option>
+              
+                  <option value="No">No</option>
+                </select>
+                  
+                          <div class="validation"></div>
+                </div>
+            <div class="form-group">
+              <p>Tech Support:<span>*</span></p>
+              <span class="icon-case"></span>
+              <select name="TechSupport_Yes"  required="required">
+              <option value="Yes">Yes</option>
+              <option value="No">NO</option>
+               </select>
+                      <div class="validation"></div>
+            </div>	
+       
+	</div>
+	</div>
+<button  type="submit " class="btn btn-lg btn-info mb-5 ml-5" style="box-shadow: 10px 10px 15px 0 rgba(7, 17, 17, 0.75); background-image: linear-gradient(to right, #e62f22, #e6441c, #e71616, #e93b0f);">Predict whether the Customer will leave or not?</button>
+	
+</form>	
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <br><br><h3 class="alert alert-primary text-center" role="alert">{{ prediction_text }}<h3>
+    </div>
+    <!-- Footer starts from here-->
+        
+    <div class="unique-color-dark mt-4 white-text " style="background-color: #1c2331 !important;">
+      <div class="blue-gradient">
+        <div class="container">
+          <!-- Grid row-->
+          <div class="row py-3 d-flex align-items-center">
+            <!-- Grid column -->
+            <div class="col-6 col-lg-5 text-center text-md-left">
+              <h6 class="mb-0 text-white">Developed by Shubham Yadav                 </h6>
+            </div>
+            <!-- Grid column -->
+             <a href="https://github.com/shamy06/customer-retention-and-ensure-lesser-churn.git"><i class="ml-5 fa fa-github fa-2x" aria-hidden="true"></i></a>
+             <a href="https://www.linkedin.com/in/shubham-yadav-953699127/"><i class="ml-5 fa fa-linkedin fa-2x" aria-hidden="true"></i></a>      
+             <a href="http://google.com/+"><i class="ml-5 fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+             <a href="http://www.facebook.com/profile.php?id="><i class="ml-5 fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+             <a href="http://twitter.com/"><i class="ml-5 fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+             <a href="http://youtube.com/"><i class="ml-5 fa fa-youtube fa-2x" aria-hidden="true"></i></a>
+             <a href="mailto:"><i class="fa fa-envolope-o fa-2x" aria-hidden="true"></i></a>
+              
+            
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row-->
+        </div>
+      </div>
+</div>
+<!--css starts from here-->
+    <style>
+body {
+  font-family: serif;
+  background-image: url(https://icanbecreative.com/res/freeweb/2011/04/light-lines-540x337.png?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100%!important;
+  }
+  /* nav bar styling*/
+  #nav-bar {
+  position: sticky;
+  top:0;
+  z-index:10;}
+  .navbar {
+  background : #3e4444  !important;
+  }
+  .navbar-nav li {
+  padding: 0 15px;
+  }
+  
+  .navbar-nav li a {
+  color: #fff !important;
+  font-family: "Trirong", serif;
+  font-weight: 800;
+  
+  }
+  .navbar-toggler {
+  outline: none;
+  box-shadow: none ;
+  }/* title styling*/
+  .promo-title {
+      color: #fff !important;
+      font-size: 50px;
+      font-weight: 600;
+      margin-top: 100px;
+    }
+    body {
+  font-family: 'Open Sans', sans-serif;
+  margin: auto;
+  background: #eaeaea;  
+  
+  }
+  h1 {
+  font-family:'Times New Roman', Times, serif;
+  font-size: 60px;
+  color: rgb(12, 2, 2);
+  padding: 23px 24px;
+  border-radius: 3px 3px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:left
+  }
+  /* form styling*/
+  form {
+  border-radius: 5px;
+  max-width:1000px;
+  width:100%;
+  margin: 3% auto;
+  overflow: hidden;
+  }
+  p span {
+  color: #F00;
+  }
+  p {
+  margin: 0px;
+  font-weight: 600;
+  line-height: 1;
+  color:rgb(19, 2, 2);
+  }
+  
+  input {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #eee;
+  margin-bottom: 15px;
+  width: 75%;
+  height: 40px;
+  float: left;
+  padding: 0px 15px;
+  }
+  a {
+  text-decoration:inherit
+  }
+  textarea {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #3f86ed;
+  margin: 0;
+  width: 75%;
+  height: 130px; 
+  float: left;
+  padding: 0px 15px;
+  }
+  .form-group {
+  overflow: hidden;
+  clear: both;
+  }
+  .icon-case {
+  width: 40px;
+  float: left;
+  border-radius: 10px 0px 0px 20px;
+  background:#eeeeee;
+  height:40px;
+  position: relative;
+  text-align: center;
+  line-height:42px;
+  }
+  i {
+  color:#555;
+  }
+  
+  .contentform {
+  padding:30px 10px;
+  }
+  .bouton-contact{
+  background-color: #81BDA4;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+  }
+  /* left section starts from here*/
+  .leftcontact {
+  width:50%; 
+  float:left;
+  border-right: 1px dotted #CCC;
+  box-sizing: border-box;
+  padding: 0px 10px 0px 0px;
+  }
+      select{
+          width: 360px;
+          margin: 0px;
+          height: 40px;
+      }
+      select:focus {
+          min-width: 360px;
+          width: auto;
+      
+  }
+  /* right section starts from here*/
+  .rightcontact {
+  width:50%;
+  float:right;
+  box-sizing: border-box;
+  padding: 0px 10px 0px 10px;
+  }
+  .validation {
+  display:none;
+  margin: 0 0 10px;
+  font-weight:400;
+  font-size:13px;
+  color: #DE5959;
+  }
+  
+  #sendmessage {
+  border:1px solid #fff;
+  display:none;
+  text-align:center;
+  margin:10px 0;
+  font-weight:600;
+  margin-bottom:30px;
+  background-color: #EBF6E0;
+  color: #5F9025;
+  border: 1px solid #B3DC82;
+  padding: 13px 40px 13px 18px;
+  border-radius: 3px;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
+  }
+  
+  #sendmessage.show,.show  {
+  display:block;
+  }
+</style>  
+    </body>
+    </html>
